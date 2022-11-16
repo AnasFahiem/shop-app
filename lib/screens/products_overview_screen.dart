@@ -40,7 +40,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         _isLoading = true;
       });
 
-      await Provider.of<Products>(context).fetchAndSetProducts();
+      await Provider.of<Products>(context, listen: false).fetchAndSetProducts();
       _isLoading = false;
     }
     _isInit = false;
