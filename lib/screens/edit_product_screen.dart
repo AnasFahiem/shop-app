@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/providers/product.dart';
-import 'package:flutter_complete_guide/providers/products_provider.dart';
-import 'package:flutter_complete_guide/screens/user_products_screen.dart';
 import 'package:provider/provider.dart';
+import '../providers/products_provider.dart';
+import '../providers/product.dart';
+import '../screens/user_products_screen.dart';
 import '../widgets/drawer.dart';
 import '../widgets/appbartheming.dart';
 
