@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/screens/edit_product_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/products_provider.dart';
 import '../providers/cart.dart';
+import '../screens/edit_product_screen.dart';
 import '../screens/cart_screen.dart';
 import '../widgets/badge.dart';
 import '../widgets/drawer.dart';
@@ -34,14 +34,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   // }
 
   @override
-  void didChangeDependencies() async {
+  void didChangeDependencies() {
     if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-
-      await Provider.of<Products>(context, listen: false).fetchAndSetProducts();
-      _isLoading = false;
+      Provider.of<Products>(context, listen: false).fetchAndSetProducts();
     }
     _isInit = false;
     super.didChangeDependencies();
