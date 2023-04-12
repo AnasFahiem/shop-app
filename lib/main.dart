@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
         title: 'MyShop',
         theme: ThemeData(
           canvasColor: Color.fromARGB(255, 204, 214, 213),
-          primarySwatch: Colors.teal,
-          accentColor: Colors.tealAccent,
           fontFamily: "Lato",
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.teal)
+              .copyWith(secondary: Colors.tealAccent),
         ),
         home: Splash_Screeen(),
         routes: {

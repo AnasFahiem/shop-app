@@ -6,7 +6,6 @@ import '../screens/order_screen.dart';
 import '../screens/products_overview_screen.dart';
 import '../widgets/appbartheming.dart';
 import '../widgets/badge.dart';
-
 import '../widgets/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
@@ -22,9 +21,34 @@ class CartScreen extends StatelessWidget {
           title: Text("your cart"),
           actions: [
             Consumer<Orders>(
-              builder: (_, order, ch) => Badge(
-                child: ch,
-                value: order.itemCount.toString(),
+              builder: (_, order, ch) => Stack(
+                alignment: Alignment.center,
+                children: [
+                  ch,
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: Container(
+                      padding: EdgeInsets.all(2.0),
+                      // color: Theme.of(context).accentColor,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 16,
+                        minHeight: 16,
+                      ),
+                      child: Text(
+                        cart.itemCount.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 10,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
               child: IconButton(
                 onPressed: () {

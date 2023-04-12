@@ -69,7 +69,7 @@ class Products with ChangeNotifier {
 
   Future<void> fetchAndSetProducts() async {
     final url = Uri.parse(
-        'https://shopapp2-e40fd-default-rtdb.firebaseio.com/products.json');
+        'https://shopp-app-500-default-rtdb.firebaseio.com/products.json');
 
     try {
       final response = await http.get(url);
@@ -94,7 +94,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final url = Uri.parse(
-        'https://shopapp2-e40fd-default-rtdb.firebaseio.com/products.json');
+        'https://shopp-app-500-default-rtdb.firebaseio.com/products.json');
     try {
       final response = await http.post(
         url,
