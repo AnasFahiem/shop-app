@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import './product.dart';
 
 class Products with ChangeNotifier {
@@ -69,12 +67,17 @@ class Products with ChangeNotifier {
 
   Future<void> fetchAndSetProducts() async {
     final url = Uri.parse(
-        'https://shopp-app-500-default-rtdb.firebaseio.com/products.json');
+        'https://sshoopp-aapppp22-default-rtdb.firebaseio.com//products.json');
 
     try {
       final response = await http.get(url);
-      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      final Map<String, dynamic> extractedData = json.decode(response.body);
       final List<Product> loadedProducts = [];
+      if (extractedData == null) {
+        print("no data");
+        return;
+      }
+
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
           id: prodId,
@@ -86,6 +89,10 @@ class Products with ChangeNotifier {
         ));
       });
       _items = loadedProducts;
+      if (response.body == null) {
+        print("no data");
+        return;
+      }
       notifyListeners();
     } catch (error) {
       throw (error);
@@ -94,7 +101,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final url = Uri.parse(
-        'https://shopp-app-500-default-rtdb.firebaseio.com/products.json');
+        'https://sshoopp-aapppp22-default-rtdb.firebaseio.com//products.json');
     try {
       final response = await http.post(
         url,
@@ -122,9 +129,18 @@ class Products with ChangeNotifier {
     }
   }
 
-  void updateProduct(String id, Product newProduct) {
+  Future<void> updateProduct(String id, Product newProduct) async {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
+      final url = Uri.parse(
+          'https://sshoopp-aapppp22-default-rtdb.firebaseio.com//products/$id.json');
+      await http.patch(url,
+          body: json.encode({
+            'title': newProduct.title,
+            'description': newProduct.description,
+            'imageUrl': newProduct.imageUrl,
+            'price': newProduct.price,
+          }));
       _items[prodIndex] = newProduct;
       notifyListeners();
     } else {
@@ -132,8 +148,13 @@ class Products with ChangeNotifier {
     }
   }
 
-  void deleteProduct(String id) {
+  Future<void> deleteProduct(String id) {
     _items.removeWhere((prod) => prod.id == id);
+    final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
+    final existingProduct = _items[existingProductIndex];
+    final url = Uri.parse(
+        'https://sshoopp-aapppp22-default-rtdb.firebaseio.com//products/$id.json');
+    http.delete(url);
     notifyListeners();
   }
 }
