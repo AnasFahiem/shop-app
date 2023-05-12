@@ -19,11 +19,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlController = TextEditingController();
   final _imageUrlFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
+  // dynamic _a = 255;
+  // dynamic _b = 255;
+  // Color color = Color.fromARGB(255, 255, 255, 255);
   var _editedProduct = Product(
     id: null,
     title: "",
     description: "",
-    price: 0,
+    price: 0.00,
     imageUrl: "",
   );
   var _initValues = {
@@ -38,7 +41,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
   @override
   void initState() {
     _imageUrlFocusNode.addListener(_updateImageUrl);
-
     super.initState();
   }
 
@@ -118,8 +120,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
             ],
           ),
         );
-      } 
-     /*  finally {
+      }
+      /*  finally {
         setState(() {
           _isLoading = false;
         });
@@ -381,6 +383,28 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      // Slider(
+                      //     value: _editedProduct.price,
+                      //     min: 1.00,
+                      //     max: 256.00,
+                      //     divisions: 255,
+                      //     activeColor: color,
+                      //     label: "${_editedProduct.price.toStringAsFixed(2)}\$",
+                      //     onChanged: (value) {
+                      //       setState(() {
+                      //         var currentValue = _editedProduct.price;
+                      //         var onChangeValue = value;
+                      //         if (currentValue > onChangeValue) {
+                      //           color = Color.fromARGB(255, 255, _a++, _b++);
+                      //         } else if (currentValue < onChangeValue) {
+                      //           color = Color.fromARGB(255, 255, _a--, _b--);
+                      //         }
+                      //         _editedProduct.price = value;
+                      //       });
+                      //     }),
                     ],
                   ),
                 ),

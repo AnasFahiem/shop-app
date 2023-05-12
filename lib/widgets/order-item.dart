@@ -75,7 +75,7 @@ class _OrderItemState extends State<OrderItem> {
                               fontSize: 18,
                               color: Color.fromARGB(187, 0, 43, 91),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     )

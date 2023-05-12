@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../providers/cart.dart';
 import '../providers/products_provider.dart';
 import '../screens/cart_screen.dart';
-import '../widgets/badge.dart';
 import '../widgets/appbartheming.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -36,7 +35,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     // color: Theme.of(context).accentColor,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     constraints: BoxConstraints(
                       minWidth: 16,
@@ -122,10 +121,10 @@ class ProductDetailsScreen extends StatelessWidget {
                               child: Text(
                                 "\$${loadedProduct.price}",
                                 style: TextStyle(
-                                  fontSize: 26,
+                                  fontSize: 24,
                                   color: Theme.of(context)
                                       .primaryTextTheme
-                                      .headline6
+                                      .titleLarge
                                       .color,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -139,10 +138,10 @@ class ProductDetailsScreen extends StatelessWidget {
                               child: Text(
                                 loadedProduct.title,
                                 style: TextStyle(
-                                  fontSize: 22,
+                                  fontSize: 20,
                                   color: Theme.of(context)
                                       .primaryTextTheme
-                                      .headline6
+                                      .titleLarge
                                       .color,
                                 ),
                               ),
@@ -160,7 +159,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           iconSize: 35,
                           icon: Icon(
                             Icons.add_shopping_cart_outlined,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ],

@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter_complete_guide/providers/product.dart';
+import 'package:http/http.dart' as http;
 
 class CartItem {
   final String id;
@@ -32,11 +36,7 @@ class Cart with ChangeNotifier {
     return total;
   }
 
-  void addItem(
-    String prodId,
-    double price,
-    String title,
-  ) {
+  void addItem(String prodId, double price, String title) {
     if (_items.containsKey(prodId)) {
       _items.update(
           prodId,
@@ -88,5 +88,39 @@ class Cart with ChangeNotifier {
   void clearCart() {
     _items = {};
     notifyListeners();
+  }
+
+  Future<void> addCartItem(String prodId, double price, String title,
+      int quantity, Product updated) async {
+    final url = Uri.parse(
+        'https://sshoopp-aapppp22-default-rtdb.firebaseio.com/cart.json');
+    final responsePost = await http.post(url,
+        body: json.encode({
+          'id': prodId,
+          'title': title,
+          'quantity': 1,
+          'price': price,
+        }));
+    if (_items.containsKey(prodId)) {
+      _items.update(
+          prodId,
+          (existingCartItem) => CartItem(
+                id: existingCartItem.id,
+                title: existingCartItem.title,
+                quantity: existingCartItem.quantity + 1,
+                price: existingCartItem.price,
+              ));
+    } else {
+      _items.putIfAbsent(
+        prodId,
+        () => CartItem(
+          id: json.decode(responsePost.body)['name'],
+          title: title,
+          quantity: quantity + 1,
+          price: price,
+        ),
+      );
+      notifyListeners();
+    }
   }
 }

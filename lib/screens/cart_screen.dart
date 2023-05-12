@@ -8,9 +8,52 @@ import '../widgets/appbartheming.dart';
 import '../widgets/badge.dart';
 import '../widgets/cart_item.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   static const routeName = "/cartScreen";
 
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class OrderButton extends StatefulWidget {
+  @override
+  State<OrderButton> createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  var _isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    final order = Provider.of<Orders>(context, listen: false);
+    final cart = Provider.of<Cart>(context);
+    return TextButton(
+      onPressed: (cart.totalAmount <= 0 || _isLoading)
+          ? null
+          : () async {
+              setState(() {
+                _isLoading = true;
+              });
+              await order.addOrder(
+                  cart.items.values.toList(), cart.totalAmount);
+              cart.clearCart();
+              _isLoading = false;
+            },
+      child: _isLoading
+          ? CircularProgressIndicator()
+          : Text(
+              "Order Now!",
+              style: TextStyle(
+                color: Color.fromARGB(187, 0, 43, 91),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+    );
+  }
+}
+
+class _CartScreenState extends State<CartScreen> {
+  var _isLoading = false;
+  var _isInit = true;
   @override
   Widget build(BuildContext context) {
     final order = Provider.of<Orders>(context, listen: false);
@@ -107,20 +150,7 @@ class CartScreen extends StatelessWidget {
                         ),
                         backgroundColor: Color.fromARGB(187, 0, 43, 91),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          order.addOrder(
-                              cart.items.values.toList(), cart.totalAmount);
-                          cart.clearCart();
-                        },
-                        child: Text(
-                          "Order Now!",
-                          style: TextStyle(
-                            color: Color.fromARGB(187, 0, 43, 91),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                      OrderButton(),
                     ],
                   ),
                 ),

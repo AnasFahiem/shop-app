@@ -31,9 +31,9 @@ class ProductItem extends StatelessWidget {
               icon: Icon(
                 productData.isFav ? Icons.favorite : Icons.favorite_border,
               ),
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
               onPressed: () {
-                productData.favoriteStatus();
+                productData.saveFavoriteStatus();
               },
             ),
           ),
@@ -47,10 +47,13 @@ class ProductItem extends StatelessWidget {
           ),
           trailing: IconButton(
             icon: Icon(Icons.add_shopping_cart_outlined),
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).colorScheme.secondary,
             onPressed: () {
               cart.addItem(
-                  productData.id, productData.price, productData.title);
+                productData.id,
+                productData.price,
+                productData.title,
+              );
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
