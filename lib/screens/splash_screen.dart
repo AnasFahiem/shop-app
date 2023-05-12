@@ -45,7 +45,7 @@ class _Splash_ScreeenState extends State<Splash_Screeen> {
             Text(
               "SHOPP APP",
               style: TextStyle(
-                color: Theme.of(context).primaryTextTheme.headline6.color,
+                color: Theme.of(context).primaryTextTheme.titleLarge.color,
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
               ),
