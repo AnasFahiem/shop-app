@@ -126,7 +126,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                     // color: Theme.of(context).accentColor,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                     constraints: BoxConstraints(
                       minWidth: 16,

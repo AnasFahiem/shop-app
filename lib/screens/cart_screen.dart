@@ -22,6 +22,24 @@ class OrderButton extends StatefulWidget {
 
 class _OrderButtonState extends State<OrderButton> {
   var _isLoading = false;
+  var _isInit = true;
+
+  // @override
+  // void didChangeDependencies() {
+  //   if (_isInit) {
+  //     setState(() {
+  //       _isLoading = true;
+  //     });
+  //     print("the state is on");
+  //     Provider.of<Cart>(context).fetchAndSetCartItem().then((_) {
+  //       setState(() {
+  //         _isLoading = false;
+  //       });
+  //     });
+  //   }
+  //   super.didChangeDependencies();
+  // }
+
   @override
   Widget build(BuildContext context) {
     final order = Provider.of<Orders>(context, listen: false);
@@ -120,58 +138,61 @@ class _CartScreenState extends State<CartScreen> {
               colors: [Color.fromARGB(187, 0, 43, 91), Colors.teal],
             ),
           ),
-          child: Column(
-            children: [
-              Card(
-                color: Color.fromARGB(255, 225, 234, 231),
-                elevation: 7,
-                margin: EdgeInsets.only(right: 6, left: 6, top: 25, bottom: 8),
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Total",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(187, 0, 43, 91)),
-                      ),
-                      Spacer(),
-                      Chip(
-                        label: Text(
-                          "\$${cart.totalAmount}",
-                          style: TextStyle(
-                              color: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headline6
-                                  .color),
+          child: _isLoading
+              ? Center(child: CircularProgressIndicator())
+              : Column(
+                  children: [
+                    Card(
+                      color: Color.fromARGB(255, 225, 234, 231),
+                      elevation: 7,
+                      margin: EdgeInsets.only(
+                          right: 6, left: 6, top: 25, bottom: 8),
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Total",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(187, 0, 43, 91)),
+                            ),
+                            Spacer(),
+                            Chip(
+                              label: Text(
+                                "\$${cart.totalAmount}",
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .primaryTextTheme
+                                        .headline6
+                                        .color),
+                              ),
+                              backgroundColor: Color.fromARGB(187, 0, 43, 91),
+                            ),
+                            OrderButton(),
+                          ],
                         ),
-                        backgroundColor: Color.fromARGB(187, 0, 43, 91),
                       ),
-                      OrderButton(),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: cart.itemCount,
+                        itemBuilder: (context, index) => CartItem(
+                          cart.items.values.toList()[index].id,
+                          cart.items.keys.toList()[index],
+                          cart.items.values.toList()[index].price,
+                          cart.items.values.toList()[index].quantity,
+                          cart.items.values.toList()[index].title,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: cart.itemCount,
-                  itemBuilder: (context, index) => CartItem(
-                    cart.items.values.toList()[index].id,
-                    cart.items.keys.toList()[index],
-                    cart.items.values.toList()[index].price,
-                    cart.items.values.toList()[index].quantity,
-                    cart.items.values.toList()[index].title,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ));
   }
 }

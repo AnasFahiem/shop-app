@@ -90,6 +90,7 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
+//make this code better :
   Future<void> addCartItem(String prodId, double price, String title,
       int quantity, Product updated) async {
     final url = Uri.parse(
@@ -98,7 +99,7 @@ class Cart with ChangeNotifier {
         body: json.encode({
           'id': prodId,
           'title': title,
-          'quantity': 1,
+          'quantity': quantity,
           'price': price,
         }));
     if (_items.containsKey(prodId)) {
@@ -107,7 +108,7 @@ class Cart with ChangeNotifier {
           (existingCartItem) => CartItem(
                 id: existingCartItem.id,
                 title: existingCartItem.title,
-                quantity: existingCartItem.quantity + 1,
+                quantity: existingCartItem.quantity + quantity,
                 price: existingCartItem.price,
               ));
     } else {
@@ -123,4 +124,32 @@ class Cart with ChangeNotifier {
       notifyListeners();
     }
   }
+
+//fix this code :
+//   Future<void> fetchAndSetCartItem() async {
+//     final url = Uri.parse(
+//         'https://sshoopp-aapppp22-default-rtdb.firebaseio.com/orders.json');
+//     final response = await http.get(url);
+//     final Map<String, CartItem> loadedCartItems = {};
+//     final extractedData = json.decode(response.body) as Map<String, dynamic>;
+//     if (extractedData == null) {
+//       print("no data");
+//       return;
+//     }
+//     extractedData.forEach((prodId, prodData) {
+//       loadedCartItems.putIfAbsent(
+//           prodId,
+//           () => CartItem(
+//                 id: prodId,
+//                 title: prodData['title'],
+//                 price: prodData['price'],
+//               ));
+//     });
+//     _items = loadedCartItems;
+//     if (response.body == null) {
+//       print("no data");
+//       return;
+//     }
+//     notifyListeners();
+//   }
 }
