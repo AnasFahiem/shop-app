@@ -10,6 +10,7 @@ import './screens/product_details_screeen.dart';
 import './screens/products_overview_screen.dart';
 import './screens/cart_screen.dart';
 import './screens/order_screen.dart';
+import './screens/auth_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ),
         home: Splash_Screeen(),
         routes: {
+          AuthScreen.routeName: (context) => AuthScreen(),
           ProductsOverviewScreen.routeName: (context) =>
               ProductsOverviewScreen(),
           ProductDetailsScreen.routeName: (context) => ProductDetailsScreen(),

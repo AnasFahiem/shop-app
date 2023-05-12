@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/screens/auth_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../screens/products_overview_screen.dart';
 
@@ -15,8 +16,7 @@ class _Splash_ScreeenState extends State<Splash_Screeen> {
     super.initState();
 
     Future.delayed(Duration(seconds: 5)).then((value) {
-      Navigator.of(context)
-          .pushReplacementNamed(ProductsOverviewScreen.routeName);
+      Navigator.of(context).pushReplacementNamed(AuthScreen.routeName);
     });
   }
 
@@ -43,7 +43,7 @@ class _Splash_ScreeenState extends State<Splash_Screeen> {
               height: 10,
             ),
             Text(
-              "SHOPP APP",
+              "SHOP APP",
               style: TextStyle(
                 color: Theme.of(context).primaryTextTheme.titleLarge.color,
                 fontWeight: FontWeight.bold,

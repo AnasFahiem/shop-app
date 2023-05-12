@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/AuthCard.dart';
+
 enum AuthMode { Signup, Login }
 
 class AuthScreen extends StatelessWidget {
@@ -31,45 +33,40 @@ class AuthScreen extends StatelessWidget {
               height: deviceSize.height,
               width: deviceSize.width,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Flexible(
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 94),
-                      transform: Matrix4.rotationZ(-8 * 3.14 / 180)
-                        ..translate(-10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.teal.shade900,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 8,
-                            color: Colors.black26,
-                            offset: Offset(0, 2),
-                          )
-                        ],
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image(
+                        image: AssetImage("images/2.png"),
+                        width: 200,
                       ),
-                      child: Text(
-                        "Shop APP",
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "SHOP APP",
                         style: TextStyle(
                           color: Theme.of(context)
-                              .accentTextTheme
-                              .headline6
+                              .primaryTextTheme
+                              .titleLarge
                               .color,
-                          fontSize: 50,
-                          fontFamily: "Anton",
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 35,
                         ),
                       ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: deviceSize.width > 600 ? 2 : 1,
-                    child: //AuthCard(),
-                  ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Flexible(
+                        flex: deviceSize.width > 600 ? 2 : 1,
+                        child: AuthCard(),
+                      ),
+                    ],
+                  )),
                 ],
               ),
             ),
