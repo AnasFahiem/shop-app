@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/AuthCard.dart';
 
@@ -42,7 +43,7 @@ class AuthScreen extends StatelessWidget {
                     children: [
                       Image(
                         image: AssetImage("images/2.png"),
-                        width: 200,
+                        width: 170,
                       ),
                       SizedBox(
                         height: 10,
@@ -55,11 +56,11 @@ class AuthScreen extends StatelessWidget {
                               .titleLarge
                               .color,
                           fontWeight: FontWeight.bold,
-                          fontSize: 35,
+                          fontSize: 30,
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Flexible(
                         flex: deviceSize.width > 600 ? 2 : 1,
