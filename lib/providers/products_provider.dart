@@ -23,7 +23,7 @@ class Products with ChangeNotifier {
 
   Future<void> fetchAndSetProducts() async {
     final url = Uri.parse(
-        'https://sshoopp-aapppp22-default-rtdb.firebaseio.com//products.json');
+        'https://shop-app3-b4740-default-rtdb.firebaseio.com/products.json');
 
     try {
       final response = await http.get(url);
@@ -39,16 +39,13 @@ class Products with ChangeNotifier {
           id: prodId,
           title: prodData['title'],
           description: prodData['description'],
-          price: prodData['price'],
+          price: double.tryParse(prodData['price'].toString()) ?? 0.0,
           isFav: prodData['isFavorite'],
           imageUrl: prodData['imageUrl'],
         ));
       });
+
       _items = loadedProducts;
-      if (response.body == null) {
-        print("no data");
-        return;
-      }
       notifyListeners();
     } catch (error) {
       throw (error);
@@ -57,7 +54,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final url = Uri.parse(
-        'https://sshoopp-aapppp22-default-rtdb.firebaseio.com//products.json');
+        'https://shop-app3-b4740-default-rtdb.firebaseio.com/products.json');
     try {
       final response = await http.post(
         url,
@@ -89,7 +86,7 @@ class Products with ChangeNotifier {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
       final url = Uri.parse(
-          'https://sshoopp-aapppp22-default-rtdb.firebaseio.com//products/$id.json');
+          'https://shop-app3-b4740-default-rtdb.firebaseio.com/products/$id.json');
       await http.patch(url,
           body: json.encode({
             'title': newProduct.title,
@@ -108,7 +105,7 @@ class Products with ChangeNotifier {
     final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
     var existingProduct = _items[existingProductIndex];
     final url = Uri.parse(
-        'https://sshoopp-aapppp22-default-rtdb.firebaseio.com//products/$id.json');
+        'https://shop-app3-b4740-default-rtdb.firebaseio.com/products/$id.json');
     _items.removeAt(existingProductIndex);
     notifyListeners();
     final response = await http.delete(url);

@@ -3,6 +3,7 @@ import 'package:flutter_complete_guide/screens/auth_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
+import '../screens/products_overview_screen.dart';
 
 class AuthCard extends StatefulWidget {
   const AuthCard({
@@ -39,6 +40,7 @@ class _AuthCardState extends State<AuthCard> {
         _authData["email"],
         _authData["password"],
       );
+      Navigator.of(context).pushNamed(ProductsOverviewScreen.routeName);
       // Log user in
     } else {
       // Sign user up
